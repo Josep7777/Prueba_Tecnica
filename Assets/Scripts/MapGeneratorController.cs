@@ -66,17 +66,17 @@ public class MapGeneratorController : MonoBehaviour
                         var newRoom = Instantiate(room, roomPos[i, x], Quaternion.identity);
                         rooms.Add(newRoom);
                     }
-
                 }
             }
         }
     }
 
-    void OpenDoors() {         
+    void OpenDoors() {
         for (int i = 0; i < rooms.Count; i++)
         {
-            RoomController roomController = rooms[i].GetComponent<RoomController>();
-            
+            //RoomController roomController = rooms[i].GetComponent<RoomController>();
+            // Aquí puedes utilizar roomController para acceder a la lógica de apertura de puertas de la sala
+            // Ejemplo: roomController.OpenDoors();
         }
     }
     void StarterRoom(int rows, int columns)

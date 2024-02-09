@@ -10,13 +10,31 @@ public class RoomController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateRoom(testStatus);
+        //UpdateRoom(1);
     }
 
-    void UpdateRoom(bool[] status) { 
+    public void UpdateRoom(bool[] status)
+    {
         for (int i = 0; i < status.Length; i++)
         {
             doors[i].SetActive(!status[i]);
         }
+        /*
+        switch (door)
+        {
+            case 0:
+                doors[0].SetActive(false); //Close the up door
+                break;
+            case 1:
+                doors[1].SetActive(false);//Close the left door
+                break;
+            case 2:
+                doors[2].SetActive(false);//Close the right door
+                break;
+            case 3:
+                doors[3].SetActive(false);//Close the down door
+                break;
+        }
+        */
     }
 }
