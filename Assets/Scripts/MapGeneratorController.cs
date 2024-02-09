@@ -80,7 +80,6 @@ public class MapGeneratorController : MonoBehaviour
                     {
                         roomController[i, x] = newRoom.GetComponent<RoomController>();
                         roomController[i, x].UpdateRoom(2);
-                        Debug.Log("Up door");
                     }
                     if (i < rows - 1 && visited[i + 1, x])
                     {
