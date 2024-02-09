@@ -6,17 +6,18 @@ using UnityEngine.UIElements;
 public class MapGeneratorController : MonoBehaviour
 {
     [Header("Spawn probability")]
-    [SerializeField] private int spawnProbability;
+    [SerializeField] private int spawnProbability = 70;
 
     [Header("Maze configuration")]
-    [SerializeField] private int maxRoomX;
-    [SerializeField] private int maxRoomY;
+    [SerializeField] private int maxRoomX = 5;
+    [SerializeField] private int maxRoomY = 5;
+    [SerializeField] private int offset = 6;
 
     [Header("Room prefab")]
     [SerializeField] private GameObject room;
 
     [Header("Spawn Player Script")]
-    [SerializeField] private SpawnPlayer spanwPlayer;
+    [SerializeField] private SpawnPlayer spawnPlayer;
 
 
     //Maze generation
@@ -55,7 +56,7 @@ public class MapGeneratorController : MonoBehaviour
                     bool hasAdjacentRoom = (i > 0 && visited[i - 1, x]) || (i < rows - 1 && visited[i + 1, x]) || (x > 0 && visited[i, x - 1]) || (x < columns - 1 && visited[i, x + 1]);
                     if (hasAdjacentRoom)
                     {
-                        roomPos[i, x] = new Vector3(x * 6, 0, i * 6);
+                        roomPos[i, x] = new Vector3(x * offset, 0, i * offset);
                         visited[i, x] = true;
                     }
 
@@ -118,6 +119,6 @@ public class MapGeneratorController : MonoBehaviour
 
         int randomIndex = Random.Range(0, availableRoomPositions.Count);
         Vector3 randomRoomPosition = availableRoomPositions[randomIndex];
-        spanwPlayer.InstantiatePlayer(new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z));
+        spawnPlayer.InstantiatePlayer(new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z));
     }
 }
