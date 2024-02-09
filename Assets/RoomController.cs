@@ -13,13 +13,14 @@ public class RoomController : MonoBehaviour
         //UpdateRoom(1);
     }
 
-    public void UpdateRoom(bool[] status)
+    public void UpdateRoom(int door)
     {
+        /*
         for (int i = 0; i < status.Length; i++)
         {
             doors[i].SetActive(!status[i]);
         }
-        /*
+        */
         switch (door)
         {
             case 0:
@@ -35,6 +36,6 @@ public class RoomController : MonoBehaviour
                 doors[3].SetActive(false);//Close the down door
                 break;
         }
-        */
+        
     }
 }

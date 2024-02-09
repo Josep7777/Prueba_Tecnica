@@ -158,8 +158,6 @@ MonoBehaviour:
   maxRoomY: 5
   room: {fileID: 7369618368915497770, guid: 0d1f791eb8f04b841a668e0c6232c006, type: 3}
   spanwPlayer: {fileID: 7472669216784958659, guid: 9398ba9bc817ba44c8326d665a5f998f, type: 3}
-  size: {x: 0, y: 0}
-  startPos: 0
 --- !u!4 &1229215941
 Transform:
   m_ObjectHideFlags: 0
