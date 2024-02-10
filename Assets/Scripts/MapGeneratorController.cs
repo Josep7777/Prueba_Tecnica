@@ -6,17 +6,18 @@ using UnityEngine.UIElements;
 public class MapGeneratorController : MonoBehaviour
 {
     [Header("Spawn probability")]
-    [SerializeField] private int spawnProbability;
+    [SerializeField] private int spawnProbability = 70;
 
     [Header("Maze configuration")]
-    [SerializeField] private int maxRoomX;
-    [SerializeField] private int maxRoomY;
+    [SerializeField] private int maxRoomX = 5;
+    [SerializeField] private int maxRoomY = 5;
+    [SerializeField] private int offset = 6;
 
     [Header("Room prefab")]
     [SerializeField] private GameObject room;
 
     [Header("Spawn Player Script")]
-    [SerializeField] private SpawnPlayer spanwPlayer;
+    [SerializeField] private GameObject spawnPlayer;
 
 
     //Maze generation
@@ -31,7 +32,7 @@ public class MapGeneratorController : MonoBehaviour
     {
         GenerateMaze(maxRoomX, maxRoomY);
         GenerateRooms(maxRoomX, maxRoomY);
-        RandomSpawn(maxRoomX, maxRoomY);
+        RandomSpawnPlayer(maxRoomX, maxRoomY);
     }
 
     public void GenerateMaze(int rows, int columns)
@@ -55,7 +56,7 @@ public class MapGeneratorController : MonoBehaviour
                     bool hasAdjacentRoom = (i > 0 && visited[i - 1, x]) || (i < rows - 1 && visited[i + 1, x]) || (x > 0 && visited[i, x - 1]) || (x < columns - 1 && visited[i, x + 1]);
                     if (hasAdjacentRoom)
                     {
-                        roomPos[i, x] = new Vector3(x * 6, 0, i * 6);
+                        roomPos[i, x] = new Vector3(x * offset, 0, i * offset);
                         visited[i, x] = true;
                     }
 
@@ -80,7 +81,6 @@ public class MapGeneratorController : MonoBehaviour
                     {
                         roomController[i, x] = newRoom.GetComponent<RoomController>();
                         roomController[i, x].UpdateRoom(2);
-                        Debug.Log("Up door");
                     }
                     if (i < rows - 1 && visited[i + 1, x])
                     {
@@ -102,7 +102,7 @@ public class MapGeneratorController : MonoBehaviour
         }
     }
 
-    void RandomSpawn(int rows, int columns)
+    void RandomSpawnPlayer(int rows, int columns)
     {
         List<Vector3> availableRoomPositions = new List<Vector3>();
 
@@ -119,6 +119,7 @@ public class MapGeneratorController : MonoBehaviour
 
         int randomIndex = Random.Range(0, availableRoomPositions.Count);
         Vector3 randomRoomPosition = availableRoomPositions[randomIndex];
-        spanwPlayer.InstantiatePlayer(new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z));
+        //spawnPlayer.transform.position = new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z);
+        Instantiate(spawnPlayer, new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z), Quaternion.identity);
     }
 }
