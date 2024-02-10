@@ -17,7 +17,7 @@ public class MapGeneratorController : MonoBehaviour
     [SerializeField] private GameObject room;
 
     [Header("Spawn Player Script")]
-    [SerializeField] private SpawnPlayer spawnPlayer;
+    [SerializeField] private GameObject spawnPlayer;
 
 
     //Maze generation
@@ -32,7 +32,7 @@ public class MapGeneratorController : MonoBehaviour
     {
         GenerateMaze(maxRoomX, maxRoomY);
         GenerateRooms(maxRoomX, maxRoomY);
-        RandomSpawn(maxRoomX, maxRoomY);
+        RandomSpawnPlayer(maxRoomX, maxRoomY);
     }
 
     public void GenerateMaze(int rows, int columns)
@@ -102,7 +102,7 @@ public class MapGeneratorController : MonoBehaviour
         }
     }
 
-    void RandomSpawn(int rows, int columns)
+    void RandomSpawnPlayer(int rows, int columns)
     {
         List<Vector3> availableRoomPositions = new List<Vector3>();
 
@@ -119,6 +119,7 @@ public class MapGeneratorController : MonoBehaviour
 
         int randomIndex = Random.Range(0, availableRoomPositions.Count);
         Vector3 randomRoomPosition = availableRoomPositions[randomIndex];
-        spawnPlayer.InstantiatePlayer(new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z));
+        //spawnPlayer.transform.position = new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z);
+        Instantiate(spawnPlayer, new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z), Quaternion.identity);
     }
 }
