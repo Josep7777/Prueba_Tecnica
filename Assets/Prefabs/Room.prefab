@@ -204,6 +204,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df619c298c532d64cb960a2a11c8db95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapTexture: {fileID: 633335015777195405}
+  visitedColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+  notVisitedColor: {r: 0, g: 0, b: 0, a: 1}
+  actualPositionColor: {r: 0.8584906, g: 0.8433708, b: 0.14902098, a: 1}
 --- !u!1 &5005084082693068610
 GameObject:
   m_ObjectHideFlags: 0

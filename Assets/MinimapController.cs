@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class MinimapController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("Minimap texture")]
+    [SerializeField] SpriteRenderer minimapTexture;
+
+    [Header("Minimap colors")]
+    [SerializeField] Color visitedColor;
+    [SerializeField] Color notVisitedColor;
+    [SerializeField] Color actualPositionColor;
+
     void Start()
     {
-        
+        minimapTexture.color = notVisitedColor;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        minimapTexture.color = actualPositionColor;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        
+        minimapTexture.color = actualPositionColor;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        minimapTexture.color = visitedColor;
     }
 }
