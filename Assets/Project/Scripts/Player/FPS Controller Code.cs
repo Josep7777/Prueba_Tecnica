@@ -8,7 +8,6 @@ public class FPSController : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 6f;
     public float runSpeed = 12f;
-    public float jumpPower = 7f;
     public float gravity = 10f;
 
 
@@ -46,15 +45,9 @@ public class FPSController : MonoBehaviour
 
         #endregion
 
-        #region Handles Jumping
-        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
-        {
-            moveDirection.y = jumpPower;
-        }
-        else
-        {
+        #region Handles Gravity
+
             moveDirection.y = movementDirectionY;
-        }
 
         if (!characterController.isGrounded)
         {

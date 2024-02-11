@@ -1,2 +1,6 @@
 # Prueba_Tecnica
-Prueba
+Controles:
+Movimiento -> W,A,S,D
+Reiniciar mapa -> R
+Salir -> ESC
+
