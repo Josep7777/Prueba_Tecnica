@@ -27,6 +27,8 @@ public class MapGeneratorController : MonoBehaviour
     //Room generation
     private RoomController[,] roomController;
 
+    private int initialColumn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,13 +37,15 @@ public class MapGeneratorController : MonoBehaviour
         RandomSpawnPlayer(maxRoomX, maxRoomY);
     }
 
+    //Create the maze
     public void GenerateMaze(int rows, int columns)
     {
+        //Initialize the arrays
         visited = new bool[rows, columns];
         roomPos = new Vector3[rows, columns];
 
-        // Asegura que haya al menos una sala en la primera fila
-        int initialColumn = Random.Range(0, 0);
+        //Ensure that the first room is created
+        initialColumn = Random.Range(0, 0);
         roomPos[0, initialColumn] = new Vector3(0, 0, 0);
         visited[0, initialColumn] = true;
 
@@ -50,13 +54,15 @@ public class MapGeneratorController : MonoBehaviour
         {
             for (int x = 0; x < columns; x++)
             {
-                if (Random.Range(0f, 101f) <= spawnProbability) // Probabilidad del 60% de tener una sala
+                if (Random.Range(0f, 101f) <= spawnProbability) // Chances to spawn a room
                 {
-                    // Verifica si hay alguna sala adyacente
+                    // Veryfy if the room has an adjacent room
                     bool hasAdjacentRoom = (i > 0 && visited[i - 1, x]) || (i < rows - 1 && visited[i + 1, x]) || (x > 0 && visited[i, x - 1]) || (x < columns - 1 && visited[i, x + 1]);
                     if (hasAdjacentRoom)
                     {
+                        //Save the position of the room
                         roomPos[i, x] = new Vector3(x * offset, 0, i * offset);
+                        //Mark the room as visited
                         visited[i, x] = true;
                     }
 
@@ -75,8 +81,10 @@ public class MapGeneratorController : MonoBehaviour
             {
                 if (visited[i, x])
                 {
+                    //Create the room in the saved position
                     GameObject newRoom = Instantiate(room, roomPos[i, x], Quaternion.identity);
 
+                    //Open the doors of the room that has an adjacent room
                     if (i > 0 && visited[i - 1, x])
                     {
                         roomController[i, x] = newRoom.GetComponent<RoomController>();
@@ -110,16 +118,25 @@ public class MapGeneratorController : MonoBehaviour
         {
             for (int x = 0; x < columns; x++)
             {
-                if (roomPos[i, x] != Vector3.zero) // Verifica si la sala existe en esa posición
+                if (roomPos[i, x] != Vector3.zero) // Verify if the room has been created
                 {
                     availableRoomPositions.Add(roomPos[i, x]);
                 }
             }
         }
+        if (availableRoomPositions.Count == 0)
+        {
+            //Enseure spawn player at least one room
+            Instantiate(spawnPlayer, new Vector3(roomPos[0, initialColumn].x, roomPos[0, initialColumn].y + 2, roomPos[0, initialColumn].z), Quaternion.identity);
+            
+        }
+        else
+        {
+            //Spawn player in a random room
+            int randomIndex = Random.Range(0, availableRoomPositions.Count);
+            Vector3 randomRoomPosition = availableRoomPositions[randomIndex];
+            Instantiate(spawnPlayer, new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z), Quaternion.identity);
+        }
 
-        int randomIndex = Random.Range(0, availableRoomPositions.Count);
-        Vector3 randomRoomPosition = availableRoomPositions[randomIndex];
-        //spawnPlayer.transform.position = new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z);
-        Instantiate(spawnPlayer, new Vector3(randomRoomPosition.x, randomRoomPosition.y + 2, randomRoomPosition.z), Quaternion.identity);
     }
 }

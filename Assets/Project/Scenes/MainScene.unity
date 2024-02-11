@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a88b20e5386a004fa427985742ad0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnProbability: 100
+  spawnProbability: 70
   maxRoomX: 5
   maxRoomY: 5
   offset: 6
